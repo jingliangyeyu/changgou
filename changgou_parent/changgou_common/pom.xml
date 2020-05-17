@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>changgou_common</artifactId>
     <description>
-        全局公共模块
+        全局公共模块配置
     </description>
 
     <dependencies>

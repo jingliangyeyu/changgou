@@ -2,8 +2,8 @@ package com.changgou.goods.controller;
 import com.changgou.entity.PageResult;
 import com.changgou.entity.Result;
 import com.changgou.entity.StatusCode;
-import com.changgou.goods.service.BrandService;
-import com.changgou.goods.pojo.Brand;
+import com.changgou.goods.service.ParaService;
+import com.changgou.goods.pojo.Para;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Map;
 @RestController
 @CrossOrigin
-@RequestMapping("/brand")
-public class BrandController {
+@RequestMapping("/para")
+public class ParaController {
 
 
     @Autowired
-    private BrandService brandService;
+    private ParaService paraService;
 
     /**
      * 查询全部数据
@@ -24,8 +24,8 @@ public class BrandController {
      */
     @GetMapping
     public Result findAll(){
-        List<Brand> brandList = brandService.findAll();
-        return new Result(true, StatusCode.OK,"查询成功",brandList) ;
+        List<Para> paraList = paraService.findAll();
+        return new Result(true, StatusCode.OK,"查询成功",paraList) ;
     }
 
     /***
@@ -35,33 +35,33 @@ public class BrandController {
      */
     @GetMapping("/{id}")
     public Result findById(@PathVariable Integer id){
-        Brand brand = brandService.findById(id);
-        return new Result(true,StatusCode.OK,"查询成功",brand);
+        Para para = paraService.findById(id);
+        return new Result(true,StatusCode.OK,"查询成功",para);
     }
 
 
     /***
      * 新增数据
-     * @param brand
+     * @param para
      * @return
      */
     @PostMapping
-    public Result add(@RequestBody Brand brand){
-        brandService.add(brand);
+    public Result add(@RequestBody Para para){
+        paraService.add(para);
         return new Result(true,StatusCode.OK,"添加成功");
     }
 
 
     /***
      * 修改数据
-     * @param brand
+     * @param para
      * @param id
      * @return
      */
     @PutMapping(value="/{id}")
-    public Result update(@RequestBody Brand brand,@PathVariable Integer id){
-        brand.setId(id);
-        brandService.update(brand);
+    public Result update(@RequestBody Para para,@PathVariable Integer id){
+        para.setId(id);
+        paraService.update(para);
         return new Result(true,StatusCode.OK,"修改成功");
     }
 
@@ -73,7 +73,7 @@ public class BrandController {
      */
     @DeleteMapping(value = "/{id}" )
     public Result delete(@PathVariable Integer id){
-        brandService.delete(id);
+        paraService.delete(id);
         return new Result(true,StatusCode.OK,"删除成功");
     }
 
@@ -84,7 +84,7 @@ public class BrandController {
      */
     @GetMapping(value = "/search" )
     public Result findList(@RequestParam Map searchMap){
-        List<Brand> list = brandService.findList(searchMap);
+        List<Para> list = paraService.findList(searchMap);
         return new Result(true,StatusCode.OK,"查询成功",list);
     }
 
@@ -98,14 +98,10 @@ public class BrandController {
      */
     @GetMapping(value = "/search/{page}/{size}" )
     public Result findPage(@RequestParam Map searchMap, @PathVariable  int page, @PathVariable  int size){
-        Page<Brand> pageList = brandService.findPage(searchMap, page, size);
+        Page<Para> pageList = paraService.findPage(searchMap, page, size);
         PageResult pageResult=new PageResult(pageList.getTotal(),pageList.getResult());
         return new Result(true,StatusCode.OK,"查询成功",pageResult);
     }
 
-    @GetMapping("/category/{categoryName}")
-    public Result<List<Map>> findBrandListByCategoryName(@PathVariable("categoryName")String categoryName){
-        List<Map> brandList = brandService.findBrandListByCategoryName(categoryName);
-        return new Result<>(true,StatusCode.OK,"查询成功",brandList);
-    }
+
 }

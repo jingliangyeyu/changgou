@@ -7,11 +7,13 @@ package com.changgou.entity;
 
 import lombok.Data;
 
+import java.util.Collection;
+
 /**
  * 返回结果实体类
  */
 @Data
-public class Result {
+public class Result<T> {
 
     private boolean flag;//是否成功
     private Integer code;//返回码

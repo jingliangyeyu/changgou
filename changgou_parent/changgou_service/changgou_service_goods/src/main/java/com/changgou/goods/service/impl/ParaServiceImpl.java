@@ -1,8 +1,8 @@
 package com.changgou.goods.service.impl;
 
-import com.changgou.goods.dao.BrandMapper;
-import com.changgou.goods.service.BrandService;
-import com.changgou.goods.pojo.Brand;
+import com.changgou.goods.dao.ParaMapper;
+import com.changgou.goods.service.ParaService;
+import com.changgou.goods.pojo.Para;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +13,18 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class BrandServiceImpl implements BrandService {
+public class ParaServiceImpl implements ParaService {
 
     @Autowired
-    private BrandMapper brandMapper;
+    private ParaMapper paraMapper;
 
     /**
      * 查询全部列表
      * @return
      */
     @Override
-    public List<Brand> findAll() {
-        return brandMapper.selectAll();
+    public List<Para> findAll() {
+        return paraMapper.selectAll();
     }
 
     /**
@@ -33,28 +33,28 @@ public class BrandServiceImpl implements BrandService {
      * @return
      */
     @Override
-    public Brand findById(Integer id){
-        return  brandMapper.selectByPrimaryKey(id);
+    public Para findById(Integer id){
+        return  paraMapper.selectByPrimaryKey(id);
     }
 
 
     /**
      * 增加
-     * @param brand
+     * @param para
      */
     @Override
-    public void add(Brand brand){
-        brandMapper.insert(brand);
+    public void add(Para para){
+        paraMapper.insert(para);
     }
 
 
     /**
      * 修改
-     * @param brand
+     * @param para
      */
     @Override
-    public void update(Brand brand){
-        brandMapper.updateByPrimaryKey(brand);
+    public void update(Para para){
+        paraMapper.updateByPrimaryKey(para);
     }
 
     /**
@@ -63,7 +63,7 @@ public class BrandServiceImpl implements BrandService {
      */
     @Override
     public void delete(Integer id){
-        brandMapper.deleteByPrimaryKey(id);
+        paraMapper.deleteByPrimaryKey(id);
     }
 
 
@@ -73,9 +73,9 @@ public class BrandServiceImpl implements BrandService {
      * @return
      */
     @Override
-    public List<Brand> findList(Map<String, Object> searchMap){
+    public List<Para> findList(Map<String, Object> searchMap){
         Example example = createExample(searchMap);
-        return brandMapper.selectByExample(example);
+        return paraMapper.selectByExample(example);
     }
 
     /**
@@ -85,9 +85,9 @@ public class BrandServiceImpl implements BrandService {
      * @return
      */
     @Override
-    public Page<Brand> findPage(int page, int size){
+    public Page<Para> findPage(int page, int size){
         PageHelper.startPage(page,size);
-        return (Page<Brand>)brandMapper.selectAll();
+        return (Page<Para>)paraMapper.selectAll();
     }
 
     /**
@@ -98,40 +98,41 @@ public class BrandServiceImpl implements BrandService {
      * @return 分页结果
      */
     @Override
-    public Page<Brand> findPage(Map<String,Object> searchMap, int page, int size){
+    public Page<Para> findPage(Map<String,Object> searchMap, int page, int size){
         PageHelper.startPage(page,size);
         Example example = createExample(searchMap);
-        return (Page<Brand>)brandMapper.selectByExample(example);
+        return (Page<Para>)paraMapper.selectByExample(example);
     }
+
     /**
      * 构建查询对象
      * @param searchMap
      * @return
      */
     private Example createExample(Map<String, Object> searchMap){
-        Example example=new Example(Brand.class);
+        Example example=new Example(Para.class);
         Example.Criteria criteria = example.createCriteria();
         if(searchMap!=null){
-            // 品牌名称
+            // 名称
             if(searchMap.get("name")!=null && !"".equals(searchMap.get("name"))){
                 criteria.andLike("name","%"+searchMap.get("name")+"%");
            	}
-            // 品牌图片地址
-            if(searchMap.get("image")!=null && !"".equals(searchMap.get("image"))){
-                criteria.andLike("image","%"+searchMap.get("image")+"%");
-           	}
-            // 品牌的首字母
-            if(searchMap.get("letter")!=null && !"".equals(searchMap.get("letter"))){
-                criteria.andLike("letter","%"+searchMap.get("letter")+"%");
+            // 选项
+            if(searchMap.get("options")!=null && !"".equals(searchMap.get("options"))){
+                criteria.andLike("options","%"+searchMap.get("options")+"%");
            	}
 
-            // 品牌id
+            // id
             if(searchMap.get("id")!=null ){
                 criteria.andEqualTo("id",searchMap.get("id"));
             }
             // 排序
             if(searchMap.get("seq")!=null ){
                 criteria.andEqualTo("seq",searchMap.get("seq"));
+            }
+            // 模板ID
+            if(searchMap.get("templateId")!=null ){
+                criteria.andEqualTo("templateId",searchMap.get("templateId"));
             }
 
         }

@@ -1,50 +1,50 @@
 package com.changgou.goods.service;
 
-import com.changgou.goods.pojo.Brand;
+import com.changgou.goods.pojo.Sku;
 import com.github.pagehelper.Page;
 
 import java.util.List;
 import java.util.Map;
 
-public interface BrandService {
+public interface SkuService {
 
     /***
      * 查询所有
      * @return
      */
-    List<Brand> findAll();
+    List<Sku> findAll();
 
     /**
      * 根据ID查询
      * @param id
      * @return
      */
-    Brand findById(Integer id);
+    Sku findById(String id);
 
     /***
      * 新增
-     * @param brand
+     * @param sku
      */
-    void add(Brand brand);
+    void add(Sku sku);
 
     /***
      * 修改
-     * @param brand
+     * @param sku
      */
-    void update(Brand brand);
+    void update(Sku sku);
 
     /***
      * 删除
      * @param id
      */
-    void delete(Integer id);
+    void delete(String id);
 
     /***
      * 多条件搜索
      * @param searchMap
      * @return
      */
-    List<Brand> findList(Map<String, Object> searchMap);
+    List<Sku> findList(Map<String, Object> searchMap);
 
     /***
      * 分页查询
@@ -52,7 +52,7 @@ public interface BrandService {
      * @param size
      * @return
      */
-    Page<Brand> findPage(int page, int size);
+    Page<Sku> findPage(int page, int size);
 
     /***
      * 多条件分页查询
@@ -61,5 +61,9 @@ public interface BrandService {
      * @param size
      * @return
      */
-    Page<Brand> findPage(Map<String, Object> searchMap, int page, int size);
+    Page<Sku> findPage(Map<String, Object> searchMap, int page, int size);
+
+
+
+
 }

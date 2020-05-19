@@ -1,37 +1,37 @@
 package com.changgou.goods.service;
 
-import com.changgou.goods.pojo.Brand;
+import com.changgou.goods.pojo.Pref;
 import com.github.pagehelper.Page;
 
 import java.util.List;
 import java.util.Map;
 
-public interface BrandService {
+public interface PrefService {
 
     /***
      * 查询所有
      * @return
      */
-    List<Brand> findAll();
+    List<Pref> findAll();
 
     /**
      * 根据ID查询
      * @param id
      * @return
      */
-    Brand findById(Integer id);
+    Pref findById(Integer id);
 
     /***
      * 新增
-     * @param brand
+     * @param pref
      */
-    void add(Brand brand);
+    void add(Pref pref);
 
     /***
      * 修改
-     * @param brand
+     * @param pref
      */
-    void update(Brand brand);
+    void update(Pref pref);
 
     /***
      * 删除
@@ -44,7 +44,7 @@ public interface BrandService {
      * @param searchMap
      * @return
      */
-    List<Brand> findList(Map<String, Object> searchMap);
+    List<Pref> findList(Map<String, Object> searchMap);
 
     /***
      * 分页查询
@@ -52,7 +52,7 @@ public interface BrandService {
      * @param size
      * @return
      */
-    Page<Brand> findPage(int page, int size);
+    Page<Pref> findPage(int page, int size);
 
     /***
      * 多条件分页查询
@@ -61,5 +61,9 @@ public interface BrandService {
      * @param size
      * @return
      */
-    Page<Brand> findPage(Map<String, Object> searchMap, int page, int size);
+    Page<Pref> findPage(Map<String, Object> searchMap, int page, int size);
+
+
+
+
 }

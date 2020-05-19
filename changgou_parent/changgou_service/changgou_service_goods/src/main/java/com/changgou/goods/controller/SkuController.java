@@ -2,8 +2,8 @@ package com.changgou.goods.controller;
 import com.changgou.entity.PageResult;
 import com.changgou.entity.Result;
 import com.changgou.entity.StatusCode;
-import com.changgou.goods.service.BrandService;
-import com.changgou.goods.pojo.Brand;
+import com.changgou.goods.service.SkuService;
+import com.changgou.goods.pojo.Sku;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Map;
 @RestController
 @CrossOrigin
-@RequestMapping("/brand")
-public class BrandController {
+@RequestMapping("/sku")
+public class SkuController {
 
 
     @Autowired
-    private BrandService brandService;
+    private SkuService skuService;
 
     /**
      * 查询全部数据
@@ -24,8 +24,8 @@ public class BrandController {
      */
     @GetMapping
     public Result findAll(){
-        List<Brand> brandList = brandService.findAll();
-        return new Result(true, StatusCode.OK,"查询成功",brandList) ;
+        List<Sku> skuList = skuService.findAll();
+        return new Result(true, StatusCode.OK,"查询成功",skuList) ;
     }
 
     /***
@@ -34,34 +34,34 @@ public class BrandController {
      * @return
      */
     @GetMapping("/{id}")
-    public Result findById(@PathVariable Integer id){
-        Brand brand = brandService.findById(id);
-        return new Result(true,StatusCode.OK,"查询成功",brand);
+    public Result findById(@PathVariable String id){
+        Sku sku = skuService.findById(id);
+        return new Result(true,StatusCode.OK,"查询成功",sku);
     }
 
 
     /***
      * 新增数据
-     * @param brand
+     * @param sku
      * @return
      */
     @PostMapping
-    public Result add(@RequestBody Brand brand){
-        brandService.add(brand);
+    public Result add(@RequestBody Sku sku){
+        skuService.add(sku);
         return new Result(true,StatusCode.OK,"添加成功");
     }
 
 
     /***
      * 修改数据
-     * @param brand
+     * @param sku
      * @param id
      * @return
      */
     @PutMapping(value="/{id}")
-    public Result update(@RequestBody Brand brand,@PathVariable Integer id){
-        brand.setId(id);
-        brandService.update(brand);
+    public Result update(@RequestBody Sku sku,@PathVariable String id){
+        sku.setId(id);
+        skuService.update(sku);
         return new Result(true,StatusCode.OK,"修改成功");
     }
 
@@ -72,8 +72,8 @@ public class BrandController {
      * @return
      */
     @DeleteMapping(value = "/{id}" )
-    public Result delete(@PathVariable Integer id){
-        brandService.delete(id);
+    public Result delete(@PathVariable String id){
+        skuService.delete(id);
         return new Result(true,StatusCode.OK,"删除成功");
     }
 
@@ -84,7 +84,7 @@ public class BrandController {
      */
     @GetMapping(value = "/search" )
     public Result findList(@RequestParam Map searchMap){
-        List<Brand> list = brandService.findList(searchMap);
+        List<Sku> list = skuService.findList(searchMap);
         return new Result(true,StatusCode.OK,"查询成功",list);
     }
 
@@ -98,14 +98,10 @@ public class BrandController {
      */
     @GetMapping(value = "/search/{page}/{size}" )
     public Result findPage(@RequestParam Map searchMap, @PathVariable  int page, @PathVariable  int size){
-        Page<Brand> pageList = brandService.findPage(searchMap, page, size);
+        Page<Sku> pageList = skuService.findPage(searchMap, page, size);
         PageResult pageResult=new PageResult(pageList.getTotal(),pageList.getResult());
         return new Result(true,StatusCode.OK,"查询成功",pageResult);
     }
 
-    @GetMapping("/category/{categoryName}")
-    public Result<List<Map>> findBrandListByCategoryName(@PathVariable("categoryName")String categoryName){
-        List<Map> brandList = brandService.findBrandListByCategoryName(categoryName);
-        return new Result<>(true,StatusCode.OK,"查询成功",brandList);
-    }
+
 }

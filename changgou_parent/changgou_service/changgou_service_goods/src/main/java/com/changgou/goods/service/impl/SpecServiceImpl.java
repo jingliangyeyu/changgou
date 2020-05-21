@@ -1,6 +1,8 @@
 package com.changgou.goods.service.impl;
 
+import com.changgou.goods.dao.CategoryMapper;
 import com.changgou.goods.dao.SpecMapper;
+import com.changgou.goods.pojo.Category;
 import com.changgou.goods.service.SpecService;
 import com.changgou.goods.pojo.Spec;
 import com.github.pagehelper.Page;
@@ -8,7 +10,6 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
-
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,8 @@ public class SpecServiceImpl implements SpecService {
 
     @Autowired
     private SpecMapper specMapper;
+
+    private CategoryMapper categoryMapper;
 
     /**
      * 查询全部列表
@@ -102,6 +105,21 @@ public class SpecServiceImpl implements SpecService {
         PageHelper.startPage(page,size);
         Example example = createExample(searchMap);
         return (Page<Spec>)specMapper.selectByExample(example);
+    }
+
+    /***
+     * 根据分类ID查询规格列表
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public List<Spec> findByCategoryId(Integer categoryId) {
+        //根据分类id查出模板id
+        Category category = categoryMapper.selectByPrimaryKey(categoryId);
+        //根据模板id查出规格列表
+        Spec spec = new Spec();
+        spec.setTemplateId(category.getTemplateId());
+        return specMapper.select(spec);
     }
 
     /**

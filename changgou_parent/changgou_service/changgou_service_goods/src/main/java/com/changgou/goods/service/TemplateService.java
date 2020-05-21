@@ -63,7 +63,10 @@ public interface TemplateService {
      */
     Page<Template> findPage(Map<String, Object> searchMap, int page, int size);
 
-
-
-
+    /**
+     * 根据分类模板id查出模板
+     * @param categoryId
+     * @return
+     */
+    Template findByCategoryId(Integer categoryId);
 }

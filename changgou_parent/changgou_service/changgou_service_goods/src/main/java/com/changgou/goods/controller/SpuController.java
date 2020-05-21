@@ -8,6 +8,8 @@ import com.changgou.goods.pojo.Spu;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 @RestController
@@ -29,30 +31,82 @@ public class SpuController {
         return new Result(true, StatusCode.OK,"查询成功",spuList) ;
     }
 
-    /***
-     * 根据ID查询数据
+    /**
+     * 根据spuId查询goods
      * @param id
      * @return
      */
-    @GetMapping("/{id}")
-    public Result findById(@PathVariable String id){
-        //Spu spu = spuService.findById(id);
-        Goods goods = spuService.findGoodsById(id);
+    @GetMapping("/goods/{id}")
+    public Result findById(@PathVariable Long id){
+        Goods goods = spuService.findGoodsBySpuId(id);
         return new Result(true,StatusCode.OK,"查询成功",goods);
     }
 
 
     /***
-     * 新增数据
+     * 添加Goods
      * @param goods
      * @return
      */
-    @PostMapping
-    public Result add(@RequestBody Goods goods){
-        spuService.add(goods);
-        return new Result(true,StatusCode.OK,"添加成功");
+    @PostMapping("/save")
+    public Result save(@RequestBody Goods goods) throws ParseException {
+        spuService.saveGoods(goods);
+        return new Result(true,StatusCode.OK,"保存成功");
     }
 
+    /**
+     * 审核
+     * @param id
+     * @return
+     */
+    @PutMapping("/audit/{id}")
+    public Result audit(@PathVariable Long id){
+        spuService.audit(id);
+        return new Result(true,StatusCode.OK,"审核成功");
+    }
+
+    /**
+     * 下架
+     * @param id
+     * @return
+     */
+    @PutMapping("/pull/{id}")
+    public Result pull(@PathVariable Long id){
+        spuService.pull(id);
+        return new Result(true,StatusCode.OK,"下架成功");
+    }
+    /**
+     *  批量上架
+     * @param ids
+     * @return
+     */
+    @PutMapping("/pull/many")
+    public Result pullMany(@RequestBody Long[] ids){
+        int count = spuService.pullMany(ids);
+        return new Result(true,StatusCode.OK,"下架"+count+"个商品");
+    }
+
+    /**
+     * 商品上架
+     * @param id
+     * @return
+     */
+    @PutMapping("/put/{id}")
+    public Result put(@PathVariable Long id){
+        spuService.put(id);
+        return new Result(true,StatusCode.OK,"上架成功");
+    }
+
+    /**
+     *  批量上架
+     * @param ids
+     * @return
+     */
+    @PutMapping("/put/many")
+    public Result putMany(@RequestBody Long[] ids){
+        int count = spuService.putMany(ids);
+        return new Result(true,StatusCode.OK,"上架"+count+"个商品");
+    }
 
     /***
      * 修改数据
@@ -73,9 +127,31 @@ public class SpuController {
      * @return
      */
     @DeleteMapping(value = "/{id}" )
-    public Result delete(@PathVariable String id){
+    public Result delete(@PathVariable Long id){
         spuService.delete(id);
         return new Result(true,StatusCode.OK,"删除成功");
+    }
+
+    /**
+     * 逻辑删除
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/logic/delete/{id}")
+    public Result logicDelete(@PathVariable Long id){
+        spuService.logicDelete(id);
+        return new Result(true,StatusCode.OK,"逻辑删除成功！");
+    }
+
+    /**
+     * 还原删除（逻辑删除）数据
+     * @param id
+     * @return
+     */
+    @PutMapping("/restore/{id}")
+    public Result restore(@PathVariable Long id){
+        spuService.restore(id);
+        return new Result(true,StatusCode.OK,"数据恢复成功！");
     }
 
     /***
@@ -100,39 +176,8 @@ public class SpuController {
     @GetMapping(value = "/search/{page}/{size}" )
     public Result findPage(@RequestParam Map searchMap, @PathVariable  int page, @PathVariable  int size){
         Page<Spu> pageList = spuService.findPage(searchMap, page, size);
-        PageResult pageResult=new PageResult(pageList.getTotal(),pageList.getResult());
+        PageResult pageResult = new PageResult(pageList.getTotal(),pageList.getResult());
         return new Result(true,StatusCode.OK,"查询成功",pageResult);
     }
-
-    @PutMapping("/audit/{id}")
-    public Result audit(@PathVariable("id") String id){
-        spuService.audit(id);
-        return new Result(true,StatusCode.OK,"商品审核成功");
-    }
-
-    @PutMapping("/pull/{id}")
-    public Result pull(@PathVariable("id") String id){
-        spuService.pull(id);
-        return new Result(true,StatusCode.OK,"商品下架成功");
-    }
-
-    @PutMapping("/put/{id}")
-    public Result put(@PathVariable("id") String id){
-        spuService.put(id);
-        return new Result(true,StatusCode.OK,"商品上架成功");
-    }
-
-    @PutMapping("/restore/{id}")
-    public Result restore(@PathVariable("id") String id){
-        spuService.restore(id);
-        return new Result(true,StatusCode.OK,"商品还原成功");
-    }
-
-    @DeleteMapping("/realDel/{id}")
-    public Result realDel(@PathVariable("id") String id){
-        spuService.realDel(id);
-        return new Result(true,StatusCode.OK,"商品删除成功");
-    }
-
 
 }

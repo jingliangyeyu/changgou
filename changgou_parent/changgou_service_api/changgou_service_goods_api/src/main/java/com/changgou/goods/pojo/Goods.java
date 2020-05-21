@@ -2,6 +2,9 @@ package com.changgou.goods.pojo;
 
 import java.util.List;
 
+/**
+ * 为了实现商品的保存（sku+spu就是完整的商品属性）
+ */
 public class Goods {
 
     //spu

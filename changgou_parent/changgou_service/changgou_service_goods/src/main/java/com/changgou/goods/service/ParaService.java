@@ -2,7 +2,6 @@ package com.changgou.goods.service;
 
 import com.changgou.goods.pojo.Para;
 import com.github.pagehelper.Page;
-
 import java.util.List;
 import java.util.Map;
 
@@ -63,7 +62,11 @@ public interface ParaService {
      */
     Page<Para> findPage(Map<String, Object> searchMap, int page, int size);
 
-
-
+    /***
+     * 根据分类ID查询额外参数列表
+     * @param categoryId
+     * @return
+     */
+    List<Para> findByCategoryId(Integer categoryId);
 
 }

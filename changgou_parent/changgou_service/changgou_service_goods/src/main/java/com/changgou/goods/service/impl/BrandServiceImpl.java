@@ -103,6 +103,17 @@ public class BrandServiceImpl implements BrandService {
         Example example = createExample(searchMap);
         return (Page<Brand>)brandMapper.selectByExample(example);
     }
+
+    /**
+     * 根据categoryId查出品牌
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public List<Brand> findByCategoryId(Integer categoryId) {
+        return brandMapper.findByCategoryId(categoryId);
+    }
+
     /**
      * 构建查询对象
      * @param searchMap

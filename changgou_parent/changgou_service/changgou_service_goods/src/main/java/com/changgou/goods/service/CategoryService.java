@@ -63,7 +63,12 @@ public interface CategoryService {
      */
     Page<Category> findPage(Map<String, Object> searchMap, int page, int size);
 
-
+    /**
+     * 根据父id查询分类（0表示1级目录）
+     * @param parentId
+     * @return
+     */
+    List<Category> findByParentId(Integer parentId);
 
 
 }

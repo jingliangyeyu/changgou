@@ -105,6 +105,20 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     /**
+     * 根据父id查询分类（0表示1级目录）
+     * @param parentId
+     * @return
+     */
+    @Override
+    public List<Category> findByParentId(Integer parentId) {
+        Category category = new Category();
+        category.setParentId(parentId);
+        return categoryMapper.select(category);
+    }
+
+
+
+    /**
      * 构建查询对象
      * @param searchMap
      * @return

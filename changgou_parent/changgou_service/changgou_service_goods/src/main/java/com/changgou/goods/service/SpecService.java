@@ -63,4 +63,10 @@ public interface SpecService {
      */
     Page<Spec> findPage(Map<String, Object> searchMap, int page, int size);
 
+    /***
+     * 根据分类ID查询规格列表
+     * @param categoryId
+     * @return
+     */
+    List<Spec> findByCategoryId(Integer categoryId);
 }

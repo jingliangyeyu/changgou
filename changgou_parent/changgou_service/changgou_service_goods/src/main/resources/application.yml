@@ -18,6 +18,10 @@ feign:
   hystrix:
     enabled: true
 
+workerId: 0
+datacenterId: 0
+
+
 #hystrix 配置
 hystrix:
   command:

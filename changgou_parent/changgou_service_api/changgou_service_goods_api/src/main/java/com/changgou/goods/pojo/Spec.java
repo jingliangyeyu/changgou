@@ -57,7 +57,4 @@ public class Spec implements Serializable {
 	public void setTemplateId(Integer templateId) {
 		this.templateId = templateId;
 	}
-
-
-
 }

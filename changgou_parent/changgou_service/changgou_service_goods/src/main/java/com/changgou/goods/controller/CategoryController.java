@@ -102,6 +102,9 @@ public class CategoryController {
         PageResult pageResult=new PageResult(pageList.getTotal(),pageList.getResult());
         return new Result(true,StatusCode.OK,"查询成功",pageResult);
     }
-
-
+    @GetMapping(value = "{/list/parentId}")
+    public Result<List<Category>> findByParentId(@PathVariable Integer parentId){
+        List<Category> categoryList = categoryService.findByParentId(parentId);
+        return new Result<List<Category>>(true,StatusCode.OK,"查询分类成功",categoryList);
+    }
 }

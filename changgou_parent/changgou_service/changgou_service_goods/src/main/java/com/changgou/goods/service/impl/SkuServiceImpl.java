@@ -105,6 +105,18 @@ public class SkuServiceImpl implements SkuService {
     }
 
     /**
+     * 根据状态查询SKU列表
+     * @param status
+     * @return
+     */
+    @Override
+    public List<Sku> findByStatus(String status) {
+        Sku sku = new Sku();
+        sku.setStatus(status);
+        return skuMapper.select(sku);
+    }
+
+    /**
      * 构建查询对象
      * @param searchMap
      * @return

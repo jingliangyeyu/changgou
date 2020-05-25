@@ -15,6 +15,7 @@
     </description>
     <modules>
         <module>changgou_service_goods_api</module>
+        <module>changgou_service_search_api</module>
     </modules>
     <dependencies>
         <dependency>

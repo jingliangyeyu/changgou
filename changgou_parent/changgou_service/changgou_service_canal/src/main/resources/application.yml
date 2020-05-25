@@ -1,13 +1,8 @@
 server:
-  port: 9001
+  port: 9102
 spring:
   application:
-    name: goods
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.80.129:3306/changgou_goods?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: 123456
+    name: canal
 eureka:
   client:
     service-url:
@@ -17,11 +12,6 @@ eureka:
 feign:
   hystrix:
     enabled: true
-
-workerId: 0
-datacenterId: 0
-
-
 #hystrix 配置
 hystrix:
   command:
@@ -32,3 +22,11 @@ hystrix:
           enabled: true
         isolation:
           strategy: SEMAPHORE
+#canal配置
+#example对应canal配置里面的主题
+canal:
+  client:
+    instances:
+      test:
+        host: 192.168.80.129
+        port: 11111

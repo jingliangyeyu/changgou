@@ -5,14 +5,10 @@ package com.changgou.entity;
  * @create 2020-05-14 22:10
  */
 
-import lombok.Data;
-
-import java.util.Collection;
 
 /**
  * 返回结果实体类
  */
-@Data
 public class Result<T> {
 
     private boolean flag;//是否成功
@@ -39,5 +35,35 @@ public class Result<T> {
         this.message = "执行成功";
     }
 
-    // getter and setter.....
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
 }

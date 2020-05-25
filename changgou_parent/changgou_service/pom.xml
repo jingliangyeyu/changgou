@@ -16,9 +16,9 @@
     <modules>
         <module>changgou_service_goods</module>
         <module>changgou_service_file</module>
+        <module>changgou_service_canal</module>
+        <module>changgou_service_search</module>
     </modules>
-
-
     <dependencies>
         <dependency>
             <groupId>com.changgou</groupId>
